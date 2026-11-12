@@ -5,14 +5,25 @@
 document.addEventListener('DOMContentLoaded', async () => {
   showConfigWarning('config-warning');
 
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const isAdminPage = currentPage === 'admin-dashboard.html';
+
   // If already logged in and an admin → go to dashboard
   const { data: { session } } = await _supabase.auth.getSession();
   if (session) {
     const isAdmin = await checkAdminRole(session.user.id);
     if (isAdmin) {
-      window.location.href = 'admin-dashboard.html';
+      if (!isAdminPage) {
+        window.location.href = 'admin-dashboard.html';
+      }
       return;
     }
+  }
+
+  // If this is the admin dashboard and the user is not an admin, send them away
+  if (isAdminPage) {
+    window.location.href = 'admin-login.html';
+    return;
   }
 
   initLoginForm();
