@@ -8,19 +8,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const isAdminPage = currentPage === 'admin-dashboard.html';
 
-  // If already logged in and an admin → go to dashboard
   const { data: { session } } = await _supabase.auth.getSession();
+
   if (session) {
     const isAdmin = await checkAdminRole(session.user.id);
+
     if (isAdmin) {
       if (!isAdminPage) {
         window.location.href = 'admin-dashboard.html';
       }
       return;
     }
+
+    // Clear stale/mismatched session so the user cannot bounce endlessly.
+    try {
+      await _supabase.auth.signOut();
+    } catch {}
+    localStorage.removeItem('footpathfix-auth');
   }
 
-  // If this is the admin dashboard and the user is not an admin, send them away
+  // If this is the admin dashboard and the user is not an admin, send them away.
   if (isAdminPage) {
     window.location.href = 'admin-login.html';
     return;
@@ -80,8 +87,9 @@ function initLoginForm() {
       const isAdmin = await checkAdminRole(data.user.id);
 
       if (!isAdmin) {
-        // Sign out immediately — not an admin
+        // Sign out immediately — not an admin, and remove the stale session state.
         await _supabase.auth.signOut();
+        localStorage.removeItem('footpathfix-auth');
         throw new Error('Access denied. This account does not have administrator privileges.');
       }
 
@@ -178,7 +186,10 @@ async function requireAdmin() {
   const isAdmin = await checkAdminRole(session.user.id);
 
   if (!isAdmin) {
-    await _supabase.auth.signOut();
+    try {
+      await _supabase.auth.signOut();
+    } catch {}
+    localStorage.removeItem('footpathfix-auth');
     window.location.href = 'admin-login.html';
     return null;
   }
