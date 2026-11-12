@@ -39,8 +39,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     sessionStorage.removeItem(AUTH_REDIRECT_GUARD_KEY);
   } catch {}
 
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const isAdminPage = currentPage === 'admin-dashboard.html';
+  const currentPage = window.location.pathname
+  .replace(/\/+$/, '')
+  .split('/')
+  .pop() || 'index';
+
+const isAdminPage =
+  currentPage === 'admin-dashboard' ||
+  currentPage === 'admin-dashboard.html';
 
   const { data: { session }, error } = await _supabase.auth.getSession();
 
