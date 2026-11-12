@@ -2,34 +2,72 @@
 //  FootpathFix — Auth Helper
 // ============================================
 
+const AUTH_STORAGE_KEY = 'footpathfix-auth';
+const AUTH_REDIRECT_GUARD_KEY = 'footpathfix-redirecting';
+
+function clearAuthState() {
+  try {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    sessionStorage.removeItem(AUTH_STORAGE_KEY);
+  } catch {}
+
+  try {
+    const keys = Object.keys(localStorage);
+    keys.forEach(key => {
+      if (key.startsWith('sb-') || key === AUTH_STORAGE_KEY) {
+        localStorage.removeItem(key);
+      }
+    });
+  } catch {}
+
+  try {
+    sessionStorage.removeItem(AUTH_REDIRECT_GUARD_KEY);
+  } catch {}
+}
+
+function redirectWithGuard(target) {
+  try {
+    sessionStorage.setItem(AUTH_REDIRECT_GUARD_KEY, '1');
+  } catch {}
+  window.location.replace(target);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   showConfigWarning('config-warning');
+
+  try {
+    sessionStorage.removeItem(AUTH_REDIRECT_GUARD_KEY);
+  } catch {}
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const isAdminPage = currentPage === 'admin-dashboard.html';
 
-  const { data: { session } } = await _supabase.auth.getSession();
+  const { data: { session }, error } = await _supabase.auth.getSession();
+
+  if (error) {
+    console.warn('Supabase session error:', error);
+  }
 
   if (session) {
     const isAdmin = await checkAdminRole(session.user.id);
 
     if (isAdmin) {
       if (!isAdminPage) {
-        window.location.href = 'admin-dashboard.html';
+        redirectWithGuard('admin-dashboard.html');
       }
       return;
     }
 
-    // Clear stale/mismatched session so the user cannot bounce endlessly.
+    // This user is authenticated, but not recognized as an admin.
+    // Remove all persisted auth state before redirecting.
     try {
       await _supabase.auth.signOut();
     } catch {}
-    localStorage.removeItem('footpathfix-auth');
+    clearAuthState();
   }
 
-  // If this is the admin dashboard and the user is not an admin, send them away.
   if (isAdminPage) {
-    window.location.href = 'admin-login.html';
+    redirectWithGuard('admin-login.html');
     return;
   }
 
@@ -189,8 +227,8 @@ async function requireAdmin() {
     try {
       await _supabase.auth.signOut();
     } catch {}
-    localStorage.removeItem('footpathfix-auth');
-    window.location.href = 'admin-login.html';
+    clearAuthState();
+    redirectWithGuard('admin-login.html');
     return null;
   }
 
