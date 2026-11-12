@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Report a footpath obstruction in your area. Submit your complaint with details and an optional photograph." />
+  <title>Report an Issue — FootpathFix</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/report.css" />
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────── -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo" aria-label="FootpathFix Home">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      FootpathFix
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbar-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navbar-nav" id="navbar-nav">
+      <a href="index.html"   class="nav-link">Home</a>
+      <a href="report.html"  class="nav-link active">Report an Issue</a>
+      <a href="reports.html" class="nav-link">View Reports</a>
+      <a href="admin-login.html" class="nav-link nav-btn">Admin Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Page Header ────────────────────────── -->
+<header class="page-header">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep" aria-hidden="true">›</span>
+      <span aria-current="page">Report an Issue</span>
+    </nav>
+    <h1>Report an Obstruction</h1>
+    <p>Help us keep footpaths clear by submitting your complaint below.</p>
+  </div>
+</header>
+
+<!-- ── Main Content ───────────────────────── -->
+<main class="section" id="main-content">
+  <div class="container">
+    <div id="config-warning" class="hidden"></div>
+
+    <!-- Success screen (hidden by default) -->
+    <div id="success-screen" class="success-screen hidden" role="alert" aria-live="polite">
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2>Complaint Submitted!</h2>
+      <p>Your report has been received. We'll look into it and update you on progress.</p>
+      <div class="success-complaint-id">
+        <span class="success-id-label">Your Complaint ID</span>
+        <span class="success-id-value" id="success-complaint-id">—</span>
+        <button class="btn-copy" id="copy-id-btn" aria-label="Copy complaint ID">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="success-actions">
+        <a href="reports.html" class="btn btn-primary" id="view-reports-after-submit">View All Reports</a>
+        <button class="btn btn-outline" id="submit-another-btn">Submit Another</button>
+      </div>
+    </div>
+
+    <!-- Report Form -->
+    <div id="form-wrapper" class="form-wrapper">
+      <form id="report-form" class="report-form" novalidate aria-label="Report obstruction form">
+
+        <!-- Progress indicator -->
+        <div class="form-progress" aria-label="Form sections">
+          <div class="progress-step active" data-step="1">
+            <div class="progress-step-num">1</div>
+            <span>Obstruction Details</span>
+          </div>
+          <div class="progress-step-line"></div>
+          <div class="progress-step" data-step="2">
+            <div class="progress-step-num">2</div>
+            <span>Location</span>
+          </div>
+          <div class="progress-step-line"></div>
+          <div class="progress-step" data-step="3">
+            <div class="progress-step-num">3</div>
+            <span>Photo & Submit</span>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <!-- Section 1: Details -->
+          <div class="form-section" id="form-section-1">
+            <div class="form-section-header">
+              <span class="form-section-num">01</span>
+              <div>
+                <h2 class="form-section-title">Obstruction Details</h2>
+                <p class="form-section-desc">Tell us about the type and nature of the obstruction.</p>
+              </div>
+            </div>
+            <div class="form-fields">
+              <div class="form-group">
+                <label for="complaint-title" class="form-label">
+                  Complaint Title <span class="required" aria-label="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="complaint-title"
+                  name="title"
+                  class="form-control"
+                  placeholder="e.g. Vehicle parked on footpath near MG Road"
+                  maxlength="150"
+                  required
+                  aria-required="true"
+                  aria-describedby="title-error"
+                />
+                <div class="form-error hidden" id="title-error" role="alert">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Please enter a complaint title.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="complaint-category" class="form-label">
+                  Obstruction Category <span class="required" aria-label="required">*</span>
+                </label>
+                <select
+                  id="complaint-category"
+                  name="category"
+                  class="form-control"
+                  required
+                  aria-required="true"
+                  aria-describedby="category-error"
+                >
+                  <option value="" disabled selected>Select a category…</option>
+                  <option value="Illegal Parking">Illegal Parking</option>
+                  <option value="Street Vendors">Street Vendors</option>
+                  <option value="Construction Materials">Construction Materials</option>
+                  <option value="Garbage and Waste">Garbage and Waste</option>
+                  <option value="Damaged Footpath">Damaged Footpath</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div class="form-error hidden" id="category-error" role="alert">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Please select a category.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="complaint-description" class="form-label">
+                  Description <span class="required" aria-label="required">*</span>
+                </label>
+                <textarea
+                  id="complaint-description"
+                  name="description"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Describe the obstruction in detail — what it is, how long it has been there, how it affects pedestrians…"
+                  maxlength="1000"
+                  required
+                  aria-required="true"
+                  aria-describedby="description-error description-hint"
+                ></textarea>
+                <div class="form-hint d-flex justify-between" id="description-hint">
+                  <span>Minimum 20 characters</span>
+                  <span id="desc-char-count">0 / 1000</span>
+                </div>
+                <div class="form-error hidden" id="description-error" role="alert">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Please enter at least 20 characters.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Section 2: Location -->
+          <div class="form-section" id="form-section-2">
+            <div class="form-section-header">
+              <span class="form-section-num">02</span>
+              <div>
+                <h2 class="form-section-title">Location</h2>
+                <p class="form-section-desc">Where is the obstruction? Be as specific as possible.</p>
+              </div>
+            </div>
+            <div class="form-fields">
+              <div class="form-group">
+                <label for="complaint-location" class="form-label">
+                  Address / Location <span class="required" aria-label="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="complaint-location"
+                  name="location"
+                  class="form-control"
+                  placeholder="e.g. Near Bus Stop 42, MG Road, Sector 12, New Delhi — 110001"
+                  required
+                  aria-required="true"
+                  aria-describedby="location-error location-hint"
+                />
+                <div class="form-hint" id="location-hint">Include landmarks, street name, sector and city for best results.</div>
+                <div class="form-error hidden" id="location-error" role="alert">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Please enter the location.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Section 3: Photo & Submit -->
+          <div class="form-section" id="form-section-3">
+            <div class="form-section-header">
+              <span class="form-section-num">03</span>
+              <div>
+                <h2 class="form-section-title">Photo <span style="font-weight:400;color:var(--color-gray-6)">(Optional)</span></h2>
+                <p class="form-section-desc">A photo greatly helps administrators assess and address the issue.</p>
+              </div>
+            </div>
+            <div class="form-fields">
+              <div class="form-group">
+                <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-label="Upload photo">
+                  <input
+                    type="file"
+                    id="complaint-image"
+                    name="image"
+                    accept="image/jpeg,image/png,image/webp"
+                    aria-describedby="image-error image-hint"
+                  />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <p><span>Click to upload</span> or drag &amp; drop an image</p>
+                  <p class="text-xs text-muted" id="image-hint">JPG, PNG or WebP — maximum 5 MB</p>
+                </div>
+                <div id="image-preview-wrap" class="hidden"></div>
+                <div class="form-error hidden" id="image-error" role="alert">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span id="image-error-text"></span>
+                </div>
+              </div>
+
+              <!-- Upload progress -->
+              <div id="upload-progress-wrap" class="hidden">
+                <div class="form-hint mb-2">Uploading image…</div>
+                <div class="progress">
+                  <div class="progress-bar" id="upload-progress-bar" style="width:0%"></div>
+                </div>
+              </div>
+
+              <!-- Submit error -->
+              <div id="submit-error" class="alert alert-error hidden" role="alert"></div>
+
+              <!-- Submit button -->
+              <div class="form-submit-row">
+                <p class="form-hint">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Your complaint will be assigned a unique ID. Fields marked <span style="color:var(--color-danger)">*</span> are required.
+                </p>
+                <button type="submit" class="btn btn-primary btn-lg" id="submit-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  <span class="btn-text">Submit Complaint</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+
+<!-- ── Footer ─────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">FootpathFix</div>
+        <p>A citizen-driven platform for reporting and monitoring footpath obstructions.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Navigate</div>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="report.html">Report an Issue</a>
+          <a href="reports.html">View Reports</a>
+          <a href="admin-login.html">Admin Login</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-heading">Categories</div>
+        <div class="footer-links">
+          <span>Illegal Parking</span>
+          <span>Street Vendors</span>
+          <span>Construction Materials</span>
+          <span>Garbage &amp; Waste</span>
+          <span>Damaged Footpath</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FootpathFix. Built for safer pedestrian spaces.</span>
+      <span>An Idea Lab Project</span>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/report.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.env
+.env.local
+.env.*
+node_modules/
+.DS_Store
+Thumbs.db
+npm-debug.log*
+.vite/
+coverage/

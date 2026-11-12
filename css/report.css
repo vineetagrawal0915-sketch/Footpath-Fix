@@ -1,0 +1,230 @@
+/* =========================================
+   FootpathFix — Report Page Styles
+   ========================================= */
+
+.form-wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── Progress Steps ───────────────────────── */
+.form-progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-8);
+  gap: 0;
+}
+
+.progress-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-gray-5);
+  transition: color var(--transition-normal);
+}
+
+.progress-step.active { color: var(--color-primary); }
+.progress-step.done   { color: var(--color-accent); }
+
+.progress-step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--color-gray-3);
+  color: var(--color-gray-6);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-normal), color var(--transition-normal);
+}
+
+.progress-step.active .progress-step-num {
+  background: var(--color-primary);
+  color: white;
+}
+
+.progress-step.done .progress-step-num {
+  background: var(--color-accent);
+  color: white;
+}
+
+.progress-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--color-gray-3);
+  margin: 0 var(--space-3);
+  position: relative;
+}
+
+.progress-step-line.done { background: var(--color-accent); }
+
+@media (max-width: 480px) {
+  .progress-step span { display: none; }
+  .form-progress { justify-content: space-between; }
+}
+
+/* ── Form Card ────────────────────────────── */
+.form-card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-gray-3);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.form-section {
+  padding: var(--space-8) var(--space-8);
+}
+
+@media (max-width: 600px) {
+  .form-section { padding: var(--space-6) var(--space-5); }
+}
+
+.form-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.form-section-num {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary-50);
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-section-title {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-1);
+}
+
+.form-section-desc {
+  font-size: 0.875rem;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ── Submit Row ───────────────────────────── */
+.form-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.form-submit-row .form-hint { max-width: 360px; }
+
+@media (max-width: 600px) {
+  .form-submit-row { flex-direction: column; align-items: flex-start; }
+  .form-submit-row .btn { width: 100%; }
+}
+
+/* ── Success Screen ───────────────────────── */
+.success-screen {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-gray-3);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-12) var(--space-10);
+  animation: scaleIn 0.4s ease;
+}
+
+.success-icon {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, var(--color-accent), #34D399);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+  box-shadow: 0 8px 24px rgba(5,150,105,0.3);
+}
+
+.success-screen h2 {
+  color: var(--color-navy);
+  margin-bottom: var(--space-3);
+}
+
+.success-screen > p {
+  font-size: 1rem;
+  color: var(--color-gray-7);
+  margin-bottom: var(--space-6);
+}
+
+.success-complaint-id {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  background: var(--color-gray-1);
+  border: 1px solid var(--color-gray-3);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.success-id-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-gray-6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.success-id-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.08em;
+}
+
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1px solid var(--color-primary-50);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-copy:hover { background: var(--color-primary); color: white; }
+
+.success-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Upload Progress ──────────────────────── */
+#upload-progress-wrap {
+  margin-top: var(--space-2);
+}
+
+/* ── Char counter ─────────────────────────── */
+#desc-char-count { font-weight: 600; }

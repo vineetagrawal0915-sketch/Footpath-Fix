@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Browse all submitted footpath obstruction reports. Filter by category and status, search by location or ID." />
+  <title>View Reports — FootpathFix</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/reports.css" />
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────── -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo" aria-label="FootpathFix Home">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      FootpathFix
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navbar-nav" id="navbar-nav">
+      <a href="index.html"   class="nav-link">Home</a>
+      <a href="report.html"  class="nav-link">Report an Issue</a>
+      <a href="reports.html" class="nav-link active">View Reports</a>
+      <a href="admin-login.html" class="nav-link nav-btn">Admin Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Page Header ────────────────────────── -->
+<header class="page-header">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep" aria-hidden="true">›</span>
+      <span aria-current="page">View Reports</span>
+    </nav>
+    <h1>Reported Issues</h1>
+    <p>Browse all footpath obstruction reports submitted by citizens.</p>
+  </div>
+</header>
+
+<!-- ── Main Content ───────────────────────── -->
+<main class="section" id="main-content">
+  <div class="container">
+    <div id="config-warning" class="hidden"></div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar" role="search" aria-label="Filter reports">
+      <div class="search-input-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          type="search"
+          id="search-input"
+          class="search-input"
+          placeholder="Search by title, ID or location…"
+          aria-label="Search reports"
+        />
+      </div>
+      <select id="filter-category" class="filter-select" aria-label="Filter by category">
+        <option value="">All Categories</option>
+        <option value="Illegal Parking">Illegal Parking</option>
+        <option value="Street Vendors">Street Vendors</option>
+        <option value="Construction Materials">Construction Materials</option>
+        <option value="Garbage and Waste">Garbage and Waste</option>
+        <option value="Damaged Footpath">Damaged Footpath</option>
+        <option value="Other">Other</option>
+      </select>
+      <select id="filter-status" class="filter-select" aria-label="Filter by status">
+        <option value="">All Statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+      </select>
+      <button class="btn btn-ghost btn-sm" id="clear-filters-btn" aria-label="Clear all filters">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Clear
+      </button>
+    </div>
+
+    <!-- Results header -->
+    <div class="results-header" aria-live="polite" aria-atomic="true">
+      <span id="results-count" class="results-count"></span>
+      <div class="view-toggle" role="group" aria-label="View mode">
+        <button class="view-toggle-btn active" id="view-grid" aria-label="Grid view" title="Grid view">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-toggle-btn" id="view-list" aria-label="List view" title="List view">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Reports Container -->
+    <div id="reports-container" aria-live="polite">
+      <div class="loading-overlay">
+        <div class="spinner"></div>
+        <span>Loading reports…</span>
+      </div>
+    </div>
+
+    <!-- Load More -->
+    <div id="load-more-wrap" class="load-more-wrap hidden">
+      <button class="btn btn-outline" id="load-more-btn">
+        Load More Reports
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+  </div>
+</main>
+
+<!-- ── Report Detail Modal ─────────────────── -->
+<div id="report-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Report Details</h2>
+      <button class="modal-close" id="modal-close" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="loading-overlay" style="padding:var(--space-10)">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">FootpathFix</div>
+        <p>A citizen-driven platform for reporting and monitoring footpath obstructions.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Navigate</div>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="report.html">Report an Issue</a>
+          <a href="reports.html">View Reports</a>
+          <a href="admin-login.html">Admin Login</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-heading">Categories</div>
+        <div class="footer-links">
+          <span>Illegal Parking</span>
+          <span>Street Vendors</span>
+          <span>Construction Materials</span>
+          <span>Garbage &amp; Waste</span>
+          <span>Damaged Footpath</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FootpathFix. Built for safer pedestrian spaces.</span>
+      <span>An Idea Lab Project</span>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FootpathFix — Citizen-driven footpath obstruction reporting platform. Help keep your city's pedestrian paths clear and safe." />
+  <title>FootpathFix — Clear Footpaths. Safer Streets.</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────── -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container navbar-inner">
+    <a href="index.html" class="navbar-logo" aria-label="FootpathFix Home">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      FootpathFix
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbar-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navbar-nav" id="navbar-nav" role="menubar">
+      <a href="index.html"   class="nav-link" role="menuitem">Home</a>
+      <a href="report.html"  class="nav-link" role="menuitem">Report an Issue</a>
+      <a href="reports.html" class="nav-link" role="menuitem">View Reports</a>
+      <a href="admin-login.html" class="nav-link nav-btn" role="menuitem">Admin Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero Section ───────────────────────── -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-bg-shapes" aria-hidden="true">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Citizen-Powered Urban Improvement
+      </div>
+      <h1 id="hero-heading">Clear Footpaths.<br /><span class="hero-accent">Safer Streets.</span></h1>
+      <p class="hero-subtitle">Report footpath obstructions in your neighbourhood. Track resolution progress. Help make your city more walkable for everyone.</p>
+      <div class="hero-actions">
+        <a href="report.html" class="btn btn-primary btn-lg" id="hero-report-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Report an Obstruction
+        </a>
+        <a href="reports.html" class="btn btn-outline btn-lg" id="hero-view-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          View Reported Issues
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-card-stack">
+        <div class="hero-card hero-card-1">
+          <div class="hero-card-dot hero-card-dot-orange"></div>
+          <div>
+            <div class="hero-card-label">Illegal Parking</div>
+            <div class="hero-card-loc">MG Road, Sector 12</div>
+          </div>
+          <span class="badge badge-pending">● Pending</span>
+        </div>
+        <div class="hero-card hero-card-2">
+          <div class="hero-card-dot hero-card-dot-blue"></div>
+          <div>
+            <div class="hero-card-label">Construction Debris</div>
+            <div class="hero-card-loc">Anna Nagar, Main St</div>
+          </div>
+          <span class="badge badge-inprogress">● In Progress</span>
+        </div>
+        <div class="hero-card hero-card-3">
+          <div class="hero-card-dot hero-card-dot-green"></div>
+          <div>
+            <div class="hero-card-label">Damaged Footpath</div>
+            <div class="hero-card-loc">Park Street, Block C</div>
+          </div>
+          <span class="badge badge-resolved">● Resolved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats Section ──────────────────────── -->
+<section class="section-sm stats-section" aria-label="Platform statistics">
+  <div class="container">
+    <div id="config-warning" class="hidden"></div>
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#EFF6FF">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-label">Total Reports</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#FFFBEB">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-pending">—</div>
+          <div class="stat-label">Pending</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#EFF6FF">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-inprogress">—</div>
+          <div class="stat-label">In Progress</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#ECFDF5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-resolved">—</div>
+          <div class="stat-label">Resolved</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ───────────────────────── -->
+<section class="section how-it-works" aria-labelledby="how-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">Simple Process</span>
+      <h2 class="section-title" id="how-heading">How FootpathFix Works</h2>
+      <p class="section-subtitle">Three simple steps to report an issue and track its resolution.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card" role="article">
+        <div class="step-number">01</div>
+        <div class="step-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <h3>Report an Obstruction</h3>
+        <p>Fill in the complaint form with details about the obstruction — location, type, description and an optional photo.</p>
+      </div>
+      <div class="step-connector" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="step-card" role="article">
+        <div class="step-number">02</div>
+        <div class="step-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Admin Review</h3>
+        <p>Municipal administrators review your report, assess the situation and assign field teams to address the obstruction.</p>
+      </div>
+      <div class="step-connector" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="step-card" role="article">
+        <div class="step-number">03</div>
+        <div class="step-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Issue Resolved</h3>
+        <p>Track your complaint status in real time. Once resolved, see the resolution note and confirm the footpath is clear.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Recent Reports ─────────────────────── -->
+<section class="section recent-reports-section" aria-labelledby="recent-heading">
+  <div class="container">
+    <div class="section-header d-flex justify-between align-center" style="text-align:left;margin-bottom:var(--space-8)">
+      <div>
+        <span class="section-eyebrow">Live Feed</span>
+        <h2 class="section-title" id="recent-heading" style="margin-bottom:0">Recent Reports</h2>
+      </div>
+      <a href="reports.html" class="btn btn-outline" id="view-all-reports-btn">
+        View All Reports
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div id="recent-reports-container">
+      <div class="loading-overlay">
+        <div class="spinner"></div>
+        <span>Loading recent reports…</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Section ────────────────────────── -->
+<section class="section cta-section" aria-label="Call to action">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-content">
+        <h2>See a problem? Report it now.</h2>
+        <p>Your report helps keep footpaths clear and accessible for everyone — including people with disabilities, parents with prams and senior citizens.</p>
+        <a href="report.html" class="btn btn-primary btn-lg" id="cta-report-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Report an Obstruction
+        </a>
+      </div>
+      <div class="cta-visual" aria-hidden="true">
+        <div class="cta-icon-ring">
+          <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">FootpathFix</div>
+        <p>A citizen-driven platform for reporting and monitoring footpath obstructions to improve pedestrian accessibility and urban service efficiency.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Navigate</div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="report.html">Report an Issue</a>
+          <a href="reports.html">View Reports</a>
+          <a href="admin-login.html">Admin Login</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-heading">Categories</div>
+        <div class="footer-links">
+          <span>Illegal Parking</span>
+          <span>Street Vendors</span>
+          <span>Construction Materials</span>
+          <span>Garbage &amp; Waste</span>
+          <span>Damaged Footpath</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FootpathFix. Built for safer pedestrian spaces.</span>
+      <span>An Idea Lab Project</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

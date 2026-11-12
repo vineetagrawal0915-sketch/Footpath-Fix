@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FootpathFix Admin Dashboard — manage and resolve citizen complaints." />
+  <title>Admin Dashboard — FootpathFix</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="dashboard-body">
+
+<!-- ── Admin Navbar ───────────────────────── -->
+<nav class="admin-navbar" role="navigation" aria-label="Admin navigation">
+  <div class="admin-navbar-inner">
+    <div class="admin-navbar-left">
+      <a href="index.html" class="navbar-logo" aria-label="FootpathFix Home">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        FootpathFix
+      </a>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="admin-navbar-right">
+      <span class="admin-user-email" id="admin-user-email" aria-label="Logged in as admin"></span>
+      <a href="reports.html" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Public View
+      </a>
+      <button class="btn btn-ghost btn-sm" id="logout-btn" aria-label="Sign out">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Dashboard Layout ───────────────────── -->
+<div class="dashboard-layout">
+
+  <!-- Sidebar -->
+  <aside class="dashboard-sidebar" role="complementary" aria-label="Dashboard navigation">
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Overview</div>
+      <a href="#" class="sidebar-link active" id="nav-overview" data-view="overview">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <div class="sidebar-section-label">Management</div>
+      <a href="#" class="sidebar-link" id="nav-reports" data-view="reports">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        All Complaints
+        <span class="sidebar-badge" id="sidebar-total">—</span>
+      </a>
+      <a href="#" class="sidebar-link" id="nav-pending" data-view="pending">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Pending
+        <span class="sidebar-badge sidebar-badge-warning" id="sidebar-pending">—</span>
+      </a>
+      <a href="#" class="sidebar-link" id="nav-inprogress" data-view="inprogress">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        In Progress
+        <span class="sidebar-badge sidebar-badge-info" id="sidebar-inprogress">—</span>
+      </a>
+      <a href="#" class="sidebar-link" id="nav-resolved" data-view="resolved">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Resolved
+        <span class="sidebar-badge sidebar-badge-success" id="sidebar-resolved">—</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dashboard-main" id="dashboard-main" role="main">
+    <!-- Overview View -->
+    <div id="view-overview">
+      <div class="dashboard-page-header">
+        <h1>Dashboard Overview</h1>
+        <p>Summary of all citizen complaints and their resolution status.</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="dashboard-stats-grid" id="dash-stats-grid">
+        <!-- Loaded by JS -->
+        <div class="loading-overlay" style="grid-column:1/-1;padding:var(--space-8)">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="dashboard-section">
+        <div class="dashboard-section-header">
+          <h2>Recent Complaints</h2>
+          <button class="btn btn-outline btn-sm" id="dash-view-all-btn">View All</button>
+        </div>
+        <div id="dash-recent-wrap">
+          <div class="loading-overlay" style="padding:var(--space-8)"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reports View (hidden by default) -->
+    <div id="view-reports" class="hidden">
+      <div class="dashboard-page-header">
+        <h2 id="reports-view-title">All Complaints</h2>
+        <button class="btn btn-primary btn-sm" id="refresh-reports-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Refresh
+        </button>
+      </div>
+
+      <!-- Admin Filter Bar -->
+      <div class="filter-bar" style="margin-bottom:var(--space-5)">
+        <div class="search-input-wrap" style="flex:1;min-width:200px">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" id="admin-search" class="search-input" placeholder="Search complaints…" aria-label="Search complaints" />
+        </div>
+        <select id="admin-filter-status" class="filter-select" aria-label="Filter by status">
+          <option value="">All Statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+        </select>
+        <select id="admin-filter-category" class="filter-select" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option value="Illegal Parking">Illegal Parking</option>
+          <option value="Street Vendors">Street Vendors</option>
+          <option value="Construction Materials">Construction Materials</option>
+          <option value="Garbage and Waste">Garbage and Waste</option>
+          <option value="Damaged Footpath">Damaged Footpath</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table" id="admin-reports-table" aria-label="Complaints table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Title</th>
+              <th scope="col">Category</th>
+              <th scope="col">Location</th>
+              <th scope="col">Submitted</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-reports-tbody">
+            <tr><td colspan="7"><div class="loading-overlay" style="padding:var(--space-8)"><div class="spinner"></div></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ── Update Status Modal ────────────────── -->
+<div id="update-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="update-modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="update-modal-title">Update Complaint</h2>
+      <button class="modal-close" id="update-modal-close" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="update-modal-body">
+      <!-- Filled by JS -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="update-modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="update-modal-save">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="btn-text">Save Changes</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
